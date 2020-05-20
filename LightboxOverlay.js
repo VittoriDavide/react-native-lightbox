@@ -210,8 +210,8 @@ export default class LightboxOverlay extends Component {
     }
 
     const openStyle = [styles.open, {
-      left:   openVal.interpolate({inputRange: [0, 1], outputRange: [origin.x, target.x]}),
-      top:    openVal.interpolate({inputRange: [0, 1], outputRange: [origin.y + STATUS_BAR_OFFSET, target.y + STATUS_BAR_OFFSET]}),
+      translateX:   openVal.interpolate({inputRange: [0, 1], outputRange: [origin.x, target.x]}),
+      translateY:    openVal.interpolate({inputRange: [0, 1], outputRange: [origin.y + STATUS_BAR_OFFSET, target.y + STATUS_BAR_OFFSET]}),
       width:  openVal.interpolate({inputRange: [0, 1], outputRange: [origin.width, WINDOW_WIDTH]}),
       height: openVal.interpolate({inputRange: [0, 1], outputRange: [origin.height, WINDOW_HEIGHT]}),
     }];
@@ -220,33 +220,33 @@ export default class LightboxOverlay extends Component {
     const header = (<Animated.View style={[styles.header, lightboxOpacityStyle]}>{(renderHeader ?
       renderHeader(this.close) :
       (
-        <TouchableOpacity onPress={this.close}>
-          <Text style={styles.closeButton}>×</Text>
-        </TouchableOpacity>
-      )
+      <TouchableOpacity onPress={this.close}>
+      <Text style={styles.closeButton}>×</Text>
+    </TouchableOpacity>
+    )
     )}</Animated.View>);
     const content = (
       <Animated.View style={[openStyle, dragStyle]} {...handlers}>
-        {this.props.children}
-      </Animated.View>
-    );
+    {this.props.children}
+  </Animated.View>
+  );
 
     if (this.props.navigator) {
       return (
         <View>
-          {background}
-          {content}
-          {header}
-        </View>
-      );
+        {background}
+      {content}
+      {header}
+    </View>
+    );
     }
 
     return (
       <Modal visible={isOpen} transparent={true} onRequestClose={() => this.close()}>
-        {background}
-        {content}
-        {header}
-      </Modal>
-    );
+    {background}
+    {content}
+    {header}
+  </Modal>
+  );
   }
 }
